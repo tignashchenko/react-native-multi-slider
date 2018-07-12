@@ -233,7 +233,7 @@ export default class MultiSlider extends React.Component {
         this.props.sliderLength,
       );
 
-      if (value !== this.state.valueOne && this.state.valueTwo - value > this.props.minimalDistance) {
+      if (value !== this.state.valueOne && this.state.valueTwo - value >= this.props.minimalDistance) {
         this.setState(
           {
             positionOne: this.props.snapped ? snapped : confined,
@@ -279,7 +279,7 @@ export default class MultiSlider extends React.Component {
         this.props.sliderLength,
       );
 
-      if (value !== this.state.valueTwo && value - this.state.valueOne > this.props.minimalDistance) {
+      if (value !== this.state.valueTwo && value - this.state.valueOne >=this.props.minimalDistance) {
         this.setState(
           {
             positionTwo: this.props.snapped ? snapped : confined,
