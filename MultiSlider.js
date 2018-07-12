@@ -35,6 +35,7 @@ export default class MultiSlider extends React.Component {
     min: PropTypes.number,
     max: PropTypes.number,
     step: PropTypes.number,
+    minimalDistance: PropTypes.number,
 
     optionsArray: PropTypes.array,
 
@@ -69,6 +70,7 @@ export default class MultiSlider extends React.Component {
     step: 1,
     min: 0,
     max: 10,
+    minimalDistance: 1,
     touchDimensions: {
       height: 50,
       width: 50,
@@ -230,13 +232,11 @@ export default class MultiSlider extends React.Component {
         this.optionsArray,
         this.props.sliderLength,
       );
-      this.setState({
-        positionOne: this.props.snapped ? snapped : confined,
-      });
 
-      if (value !== this.state.valueOne) {
+      if (value !== this.state.valueOne && this.state.valueTwo - value > this.props.minimalDistance) {
         this.setState(
           {
+            positionOne: this.props.snapped ? snapped : confined,
             valueOne: value,
           },
           () => {
@@ -279,13 +279,10 @@ export default class MultiSlider extends React.Component {
         this.props.sliderLength,
       );
 
-      this.setState({
-        positionTwo: this.props.snapped ? snapped : confined,
-      });
-
-      if (value !== this.state.valueTwo) {
+      if (value !== this.state.valueTwo && value - this.state.valueOne > this.props.minimalDistance) {
         this.setState(
           {
+            positionTwo: this.props.snapped ? snapped : confined,
             valueTwo: value,
           },
           () => {
